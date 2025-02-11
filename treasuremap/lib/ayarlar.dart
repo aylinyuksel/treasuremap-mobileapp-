@@ -14,7 +14,7 @@ class Ayarlar extends StatelessWidget{
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             Icon(Icons.settings,size: 75),
-            Text("Ayarladdr"),
+            Text("Ayarlar"),
           ],
         ),
       ),

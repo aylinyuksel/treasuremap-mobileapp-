@@ -8,6 +8,8 @@
 	<string>Your location is needed for Google Maps.</string>
 	<key>NSLocationAlwaysUsageDescription</key>
 	<string>Your location is needed for Google Maps.</string>
+	<key>GMSApiKey</key>
+	<string>AIzaSyD4lzpfy5hB7WXLHuekX9QabpJAfNjyDG8</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string>Konumunuzu almak için izin gereklidir.</string>
 	<key>NSLocationAlwaysUsageDescription</key>
