@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_baslangic/IlceTarihiMekanlar.dart';
+import 'package:yeni_proje/IlceTarihiMekanlar.dart';
 
 class Favoriler extends StatelessWidget {
   @override

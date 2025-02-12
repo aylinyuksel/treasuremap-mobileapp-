@@ -1,10 +1,16 @@
-# Flutter Başlangıç Uygulaması
-Flutter Başlangıç Uygulaması Olması Amacıyla Eklenmiş İçerisinde Drawer Menu,Alt Tab Bar, Navigation Gibi Özellikleri İçeren Küçük Bir Projedir. 
+# yeni_proje
 
-## Flutter Nedir ?
-Flutter, içinde framework, widget ve diğer araçları barındıran, geliştiricilere Android ve iOS platformu için uygulama geliştirmeler imkanı sunan bir mobil uygulama SDK’sıdır. Google tarafından geliştirilen Flutter, açık kaynak kodlu olup, tüm geliştirici ve tasarımcılar tarafından ücretsiz olarak kullanılabilirdir.
+A new Flutter project.
 
-## Uygulamadan Resimler
-![Resim1](https://github.com/berkekurnaz/Flutter_Baslangic_Uygulamasi/blob/master/Uygulama_Resimler/resim1.png)
-![Resim2](https://github.com/berkekurnaz/Flutter_Baslangic_Uygulamasi/blob/master/Uygulama_Resimler/resim2.png)
-![Resim3](https://github.com/berkekurnaz/Flutter_Baslangic_Uygulamasi/blob/master/Uygulama_Resimler/resim3.png)
+## Getting Started
+
+This project is a starting point for a Flutter application.
+
+A few resources to get you started if this is your first Flutter project:
+
+- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
+- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+
+For help getting started with Flutter development, view the
+[online documentation](https://docs.flutter.dev/), which offers tutorials,
+samples, guidance on mobile development, and a full API reference.

@@ -1,4 +1,4 @@
-package com.example.csproject
+package com.example.yeni_proje
 
 import io.flutter.embedding.android.FlutterActivity
 
