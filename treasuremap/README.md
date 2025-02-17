@@ -1,4 +1,4 @@
-# yeni_proje
+# treasuremap
 
 A new Flutter project.
 

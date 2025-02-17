@@ -1,6 +1,6 @@
 {
-    "name": "yeni_proje",
-    "short_name": "yeni_proje",
+    "name": "treasuremap",
+    "short_name": "treasuremap",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",

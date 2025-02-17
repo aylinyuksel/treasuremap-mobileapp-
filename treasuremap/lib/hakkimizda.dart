@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:yeni_proje/IlceTarihiMekanlar.dart';
+// ignore: depend_on_referenced_packages
+import 'package:treasuremap/IlceTarihiMekanlar.dart';
 
 class Favoriler extends StatelessWidget {
   @override
