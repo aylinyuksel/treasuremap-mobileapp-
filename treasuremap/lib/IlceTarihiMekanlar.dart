@@ -10,10 +10,10 @@ class IlceTarihiMekanlar extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("$ilceAdi'deki Tarihi Mekanlar"),
+        title: Text("$ilceAdi'deki Tarihi Mekanlar sdfsdfdsfsdf"),
       ),
       body: GridView.count(
-        crossAxisCount: 2, // Her satırda 2 kutucuk
+        crossAxisCount: 2, // Her satırda 2 kutucukf
         padding: EdgeInsets.all(16.0),
         crossAxisSpacing: 10.0,
         mainAxisSpacing: 10.0,
