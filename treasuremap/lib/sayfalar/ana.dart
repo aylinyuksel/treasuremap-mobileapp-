@@ -22,7 +22,8 @@ class _AnaState extends State<Ana> {
 
   @override
   void dispose() {
-    _positionStream.cancel(); // Uygulama kapatıldığında konum dinleyicisini durdur
+    _positionStream
+        .cancel(); // Uygulama kapatıldığında konum dinleyicisini durdur
     super.dispose();
   }
 
@@ -102,7 +103,9 @@ class _AnaState extends State<Ana> {
             markerId: MarkerId("current_location"),
             position: newPosition,
             infoWindow: InfoWindow(title: "Şu Anki Konumunuz"),
-            icon: BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueBlue),
+            icon: BitmapDescriptor.defaultMarkerWithHue(
+              BitmapDescriptor.hueBlue,
+            ),
           ),
         );
       });
@@ -115,9 +118,7 @@ class _AnaState extends State<Ana> {
   Future<void> _moveCamera(LatLng newPosition) async {
     if (_controller.isCompleted) {
       final GoogleMapController controller = await _controller.future;
-      controller.animateCamera(
-        CameraUpdate.newLatLngZoom(newPosition, 18),
-      );
+      controller.animateCamera(CameraUpdate.newLatLngZoom(newPosition, 18));
     }
   }
 
@@ -130,8 +131,68 @@ class _AnaState extends State<Ana> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        title: const Text('Theme Style Google Map'),
+        centerTitle: true,
+        backgroundColor: const Color.fromARGB(200, 233, 187, 214),
+        actions: [
+          PopupMenuButton(
+              itemBuilder: (context) => [
+                    PopupMenuItem(
+                      onTap: () {
+                        _controller.future.then((value) {
+                          DefaultAssetBundle.of(context)
+                              .loadString('i_theme/standart_theme.json')
+                              .then((style) {
+                            value.setMapStyle(style);
+                          });
+                        });
+                      },
+                      child: Text('Standart'),
+                    ),
+                    PopupMenuItem(
+                      onTap: () {
+                        _controller.future.then((value) {
+                          DefaultAssetBundle.of(context)
+                              .loadString('i_theme/dark_theme.json')
+                              .then((style) {
+                            value.setMapStyle(style);
+                          });
+                        });
+                      },
+                      child: Text('Dark'),
+                    ),
+                    PopupMenuItem(
+                      onTap: () {
+                        _controller.future.then((value) {
+                          DefaultAssetBundle.of(context)
+                              .loadString('i_theme/retro_theme.json')
+                              .then((style) {
+                            value.setMapStyle(style);
+                          });
+                        });
+                      },
+                      child: Text('Retro'),
+                    ),
+                    PopupMenuItem(
+                      onTap: () {
+                        _controller.future.then((value) {
+                          DefaultAssetBundle.of(context)
+                              .loadString('i_theme/aubergine_theme.json')
+                              .then((style) {
+                            value.setMapStyle(style);
+                          });
+                        });
+                      },
+                      child: Text('Aubergine'),
+                    ),
+                  ]),
+        ],
+      ),
       body: _currentPosition == null
-          ? Center(child: CircularProgressIndicator()) // 📌 Konum yüklenene kadar harita açılmasın
+          ? Center(
+              child: CircularProgressIndicator(),
+            ) // 📌 Konum yüklenene kadar harita açılmasın
           : GoogleMap(
               onMapCreated: _onMapCreated,
               initialCameraPosition: CameraPosition(
