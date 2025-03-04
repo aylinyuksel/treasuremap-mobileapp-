@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'TarihiMekanDetay.dart'; // Detay sayfasının dosya yolu
+import 'TarihiMekanDetay.dart'; 
+// Detay sayfasının dosya yolu
 
 class IlceTarihiMekanlar extends StatelessWidget {
   final String ilceAdi; // İlçe adı
