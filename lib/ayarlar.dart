@@ -67,7 +67,7 @@ class IstanbulkartBilgiSayfasi extends StatelessWidget {
     if (await canLaunchUrl(uri)) {
       await launchUrl(uri, mode: LaunchMode.externalApplication);
     } else {
-      print("Link açılamadı.");
+      print("Linkk açılamadı.");
     }
   }
 
