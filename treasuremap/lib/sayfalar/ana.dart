@@ -50,7 +50,7 @@ class _AnaState extends State<Ana> {
     }
 
     if (permission == LocationPermission.deniedForever) {
-      print("Konum izni kalıcı olarak reddedildi.");
+      print("Konummmm izni kalıcı olarak reddedildi.");
       return;
     }
 
@@ -137,72 +137,75 @@ class _AnaState extends State<Ana> {
         backgroundColor: const Color.fromARGB(200, 233, 187, 214),
         actions: [
           PopupMenuButton(
-              itemBuilder: (context) => [
-                    PopupMenuItem(
-                      onTap: () {
-                        _controller.future.then((value) {
-                          DefaultAssetBundle.of(context)
-                              .loadString('i_theme/standart_theme.json')
-                              .then((style) {
-                            value.setMapStyle(style);
-                          });
+            itemBuilder:
+                (context) => [
+                  PopupMenuItem(
+                    onTap: () {
+                      _controller.future.then((value) {
+                        DefaultAssetBundle.of(context)
+                            .loadString('i_theme/standart_theme.json')
+                            .then((style) {
+                              value.setMapStyle(style);
+                            });
+                      });
+                    },
+                    child: Text('Standart'),
+                  ),
+                  PopupMenuItem(
+                    onTap: () {
+                      _controller.future.then((value) {
+                        DefaultAssetBundle.of(
+                          context,
+                        ).loadString('i_theme/dark_theme.json').then((style) {
+                          value.setMapStyle(style);
                         });
-                      },
-                      child: Text('Standart'),
-                    ),
-                    PopupMenuItem(
-                      onTap: () {
-                        _controller.future.then((value) {
-                          DefaultAssetBundle.of(context)
-                              .loadString('i_theme/dark_theme.json')
-                              .then((style) {
-                            value.setMapStyle(style);
-                          });
+                      });
+                    },
+                    child: Text('Dark'),
+                  ),
+                  PopupMenuItem(
+                    onTap: () {
+                      _controller.future.then((value) {
+                        DefaultAssetBundle.of(
+                          context,
+                        ).loadString('i_theme/retro_theme.json').then((style) {
+                          value.setMapStyle(style);
                         });
-                      },
-                      child: Text('Dark'),
-                    ),
-                    PopupMenuItem(
-                      onTap: () {
-                        _controller.future.then((value) {
-                          DefaultAssetBundle.of(context)
-                              .loadString('i_theme/retro_theme.json')
-                              .then((style) {
-                            value.setMapStyle(style);
-                          });
-                        });
-                      },
-                      child: Text('Retro'),
-                    ),
-                    PopupMenuItem(
-                      onTap: () {
-                        _controller.future.then((value) {
-                          DefaultAssetBundle.of(context)
-                              .loadString('i_theme/aubergine_theme.json')
-                              .then((style) {
-                            value.setMapStyle(style);
-                          });
-                        });
-                      },
-                      child: Text('Aubergine'),
-                    ),
-                  ]),
+                      });
+                    },
+                    child: Text('Retro'),
+                  ),
+                  PopupMenuItem(
+                    onTap: () {
+                      _controller.future.then((value) {
+                        DefaultAssetBundle.of(context)
+                            .loadString('i_theme/aubergine_theme.json')
+                            .then((style) {
+                              value.setMapStyle(style);
+                            });
+                      });
+                    },
+                    child: Text('Aubergine'),
+                  ),
+                ],
+          ),
         ],
       ),
-      body: _currentPosition == null
-          ? Center(
-              child: CircularProgressIndicator(),
-            ) // 📌 Konum yüklenene kadar harita açılmasın
-          : GoogleMap(
-              onMapCreated: _onMapCreated,
-              initialCameraPosition: CameraPosition(
-                target: _currentPosition!,
-                zoom: 14.0, // 📌 Daha yakın aç
+      body:
+          _currentPosition == null
+              ? Center(
+                child: CircularProgressIndicator(),
+              ) // 📌 Konum yüklenene kadar harita açılmasın
+              : GoogleMap(
+                onMapCreated: _onMapCreated,
+                initialCameraPosition: CameraPosition(
+                  target: _currentPosition!,
+                  zoom: 14.0, // 📌 Daha yakın aç
+                ),
+                myLocationEnabled: true,
+                myLocationButtonEnabled: true,
+                markers: _markers,
               ),
-              myLocationEnabled: true,
-              myLocationButtonEnabled: true,
-              markers: _markers,
-            ),
     );
   }
 }
