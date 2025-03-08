@@ -3,8 +3,10 @@ import 'package:flutter/rendering.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:http/http.dart' as http;
 import 'package:geolocator/geolocator.dart';
+import 'package:provider/provider.dart';
 import 'dart:convert';
 import 'TarihiMekanBilgiKutu.dart';
+import 'providers/favoriler_provider.dart';
 
 class TarihiMekanDetay extends StatefulWidget {
   final String mekanAdi;
@@ -123,11 +125,31 @@ class _TarihiMekanDetayState extends State<TarihiMekanDetay> {
 
     _mapController!.animateCamera(CameraUpdate.newLatLngBounds(bounds, 100));
   }
-
+  
   @override
   Widget build(BuildContext context) {
+    final favorilerProvider = Provider.of<FavorilerProvider>(context);
+    bool isFavorite =favorilerProvider.favoriMekanlar.contains(widget.mekanAdi);
     return Scaffold(
-      appBar: AppBar(title: Text(widget.mekanAdi)),
+      appBar: AppBar(title: Text(widget.mekanAdi),
+     actions: [
+        IconButton(
+          icon: Icon(
+            isFavorite ? Icons.favorite : Icons.favorite_border,
+            color: isFavorite ? Colors.red : Colors.black,
+          ),
+          onPressed: () {
+            setState(() {
+               favorilerProvider.favoriEkleCikar(widget.mekanAdi);
+             });
+          },
+        ),
+      ],
+    ), // 🔥 AppBar burada kapatıldı!
+  
+
+
+    
       body: GestureDetector(
         onTap: () {
           setState(() {

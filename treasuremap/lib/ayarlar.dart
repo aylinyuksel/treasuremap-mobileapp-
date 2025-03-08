@@ -7,7 +7,7 @@ class Ayarlar extends StatelessWidget{
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
-        title: Text("Ayarlar"),
+        title: Text("Ayarlarrr"),
       ),
       body: Center(
         child: Column(

@@ -8,7 +8,7 @@ class Ana extends StatefulWidget {
   _AnaState createState() => _AnaState();
 }
 
-class _AnaState extends State<Ana> {
+class _AnaState extends State<Ana>   {
   final Completer<GoogleMapController> _controller = Completer();
   LatLng? _currentPosition; // Kullanıcının gerçek konumu
   final Set<Marker> _markers = {}; // İşaretçiler
@@ -130,6 +130,7 @@ class _AnaState extends State<Ana> {
 
   @override
   Widget build(BuildContext context) {
+    
     return Scaffold(
       appBar: AppBar(
         title: const Text('Theme Style Google Map'),
@@ -208,4 +209,6 @@ class _AnaState extends State<Ana> {
               ),
     );
   }
+  
+ 
 }

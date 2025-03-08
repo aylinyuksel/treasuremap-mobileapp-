@@ -2,7 +2,7 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'sayfalar/ana.dart';
-import 'sayfalar/listeler.dart';
+import 'sayfalar/favoriler.dart';
 import 'sayfalar/profilim.dart';
 
 class Anasayfa extends StatefulWidget {
@@ -12,15 +12,11 @@ class Anasayfa extends StatefulWidget {
 
 class _AnasayfaState extends State<Anasayfa> {
   int aktifSayfa = 0;
-
-  gecerliSayfa(int sayfa) {
-    if (sayfa == 0) {
-      return Ana();
-    } else if (sayfa == 1) {
-      return Listeler();
-    } else if (sayfa == 2) {
-      return Profilim();
-    }
+   late List<Widget> sayfalar;
+ @override
+  void initState() {
+    super.initState();
+    sayfalar = [Ana(), FavorilerSayfasi(), Profilim()];
   }
 
   @override
@@ -30,8 +26,11 @@ class _AnasayfaState extends State<Anasayfa> {
         centerTitle: true,
         title: Text("TreasureMap"),
       ),
-      body: gecerliSayfa(aktifSayfa),
-      bottomNavigationBar: new BottomNavigationBar(
+      body: IndexedStack(
+        index: aktifSayfa,
+        children: sayfalar,
+      ),
+      bottomNavigationBar: BottomNavigationBar(
         type: BottomNavigationBarType.fixed,
         currentIndex: aktifSayfa,
         items: [
@@ -41,7 +40,7 @@ class _AnasayfaState extends State<Anasayfa> {
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.list),
-            label: 'favoriler',
+            label: 'Favoriler',
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.person),
@@ -87,14 +86,7 @@ class _AnasayfaState extends State<Anasayfa> {
                 Navigator.pushNamed(context, "/hakkimizda");
               },
             ),
-            ListTile(
-              leading: Icon(Icons.assignment),
-              title: Text('favoriledigim yerler'),
-              trailing: Icon(Icons.arrow_right),
-              onTap: () {
-                Navigator.pushNamed(context, "/nedir");
-              },
-            ),
+            
             ListTile(
               leading: Icon(Icons.settings),
               title: Text('Ayarlar'),
