@@ -89,10 +89,10 @@ class _AnasayfaState extends State<Anasayfa> {
             
             ListTile(
               leading: Icon(Icons.settings),
-              title: Text('Ayarlar'),
+              title: Text('istanbulCard'),
               trailing: Icon(Icons.arrow_right),
               onTap: () {
-                Navigator.pushNamed(context, "/ayarlar");
+                Navigator.pushNamed(context, "/istanbulcard");
               },
             ),
             Divider(),

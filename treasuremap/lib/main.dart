@@ -4,7 +4,7 @@ import 'providers/favoriler_provider.dart';
 import 'anasayfa.dart';
 import 'hakkimizda.dart';
 import 'sayfalar/favoriler.dart';
-import 'ayarlar.dart';
+import 'istanbulcard.dart';
 
 void main() {
   runApp(
@@ -19,7 +19,7 @@ void main() {
           "/": (context) => Anasayfa(),
           "/favoriler": (context) => FavorilerSayfasi(),
           "/hakkimizda": (context) => Favoriler(),  
-          "/ayarlar": (context) => Ayarlar(), 
+          "/istanbulcard": (context) => IstanbulCardScreen(), 
         },
       ),
     ),
