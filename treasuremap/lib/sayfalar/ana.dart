@@ -1,5 +1,7 @@
 import 'dart:async';
+import 'dart:convert';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart' show rootBundle;
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:geolocator/geolocator.dart';
 
@@ -8,7 +10,7 @@ class Ana extends StatefulWidget {
   _AnaState createState() => _AnaState();
 }
 
-class _AnaState extends State<Ana>   {
+class _AnaState extends State<Ana> {
   final Completer<GoogleMapController> _controller = Completer();
   LatLng? _currentPosition; // Kullanıcının gerçek konumu
   final Set<Marker> _markers = {}; // İşaretçiler
@@ -71,7 +73,9 @@ class _AnaState extends State<Ana>   {
           markerId: MarkerId("current_location"),
           position: newPosition,
           infoWindow: InfoWindow(title: "Şu Anki Konumunuz"),
-          icon: BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueBlue),
+          icon: BitmapDescriptor.defaultMarkerWithHue(
+            BitmapDescriptor.hueGreen,
+          ),
         ),
       );
     });
@@ -81,6 +85,38 @@ class _AnaState extends State<Ana>   {
 
     // 📌 Canlı konum takibini başlat
     _startLiveLocation();
+
+    // 📌 Markerları JSON'dan yükle
+    await _loadMarkersFromJson();
+  }
+
+  // 📌 JSON dosyasından tarihi mekanları yükleyip haritaya ekler
+  Future<void> _loadMarkersFromJson() async {
+    try {
+      // JSON dosyasını oku
+      String jsonString = await rootBundle.loadString(
+        'mekan_konumlari/tarihi_mekanlar.json',
+      );
+      List<dynamic> jsonData = json.decode(jsonString);
+
+      // Markerları ekle
+      setState(() {
+        for (var yer in jsonData) {
+          _markers.add(
+            Marker(
+              markerId: MarkerId(yer["isim"]),
+              position: LatLng(yer["lat"], yer["lng"]),
+              infoWindow: InfoWindow(title: yer["isim"]),
+              icon: BitmapDescriptor.defaultMarkerWithHue(
+                BitmapDescriptor.hueRose,
+              ),
+            ),
+          );
+        }
+      });
+    } catch (e) {
+      print("Hata oluştu: $e");
+    }
   }
 
   // 📌 Canlı konum takibini başlat
@@ -97,7 +133,7 @@ class _AnaState extends State<Ana>   {
         _currentPosition = newPosition;
 
         // Kullanıcının konumunu işaretçi olarak ekle
-        _markers.clear();
+        _markers.removeWhere((m) => m.markerId.value == "current_location");
         _markers.add(
           Marker(
             markerId: MarkerId("current_location"),
@@ -118,7 +154,7 @@ class _AnaState extends State<Ana>   {
   Future<void> _moveCamera(LatLng newPosition) async {
     if (_controller.isCompleted) {
       final GoogleMapController controller = await _controller.future;
-      controller.animateCamera(CameraUpdate.newLatLngZoom(newPosition, 18));
+      controller.animateCamera(CameraUpdate.newLatLngZoom(newPosition, 14));
     }
   }
 
@@ -128,9 +164,19 @@ class _AnaState extends State<Ana>   {
     }
   }
 
+  // 📌 Tema değişim fonksiyonu
+  /*void _changeMapStyle(String styleName) {
+    _controller.future.then((controller) {
+      DefaultAssetBundle.of(
+        context,
+      ).loadString('assets/theme/$styleName.json').then((style) {
+        controller.setMapStyle(style);
+      });
+    });
+  }*/
+
   @override
   Widget build(BuildContext context) {
-    
     return Scaffold(
       appBar: AppBar(
         title: const Text('Theme Style Google Map'),
@@ -138,74 +184,75 @@ class _AnaState extends State<Ana>   {
         backgroundColor: const Color.fromARGB(200, 233, 187, 214),
         actions: [
           PopupMenuButton(
-              itemBuilder: (context) => [
-                    PopupMenuItem(
-                      onTap: () {
-                        _controller.future.then((value) {
-                          DefaultAssetBundle.of(context)
-                              .loadString('i_theme/standart_theme.json')
-                              .then((style) {
-                            value.setMapStyle(style);
-                          });
+            itemBuilder:
+                (context) => [
+                  PopupMenuItem(
+                    onTap: () {
+                      _controller.future.then((value) {
+                        DefaultAssetBundle.of(context)
+                            .loadString('i_theme/standart_theme.json')
+                            .then((style) {
+                              value.setMapStyle(style);
+                            });
+                      });
+                    },
+                    child: Text('Standart'),
+                  ),
+                  PopupMenuItem(
+                    onTap: () {
+                      _controller.future.then((value) {
+                        DefaultAssetBundle.of(
+                          context,
+                        ).loadString('i_theme/dark_theme.json').then((style) {
+                          value.setMapStyle(style);
                         });
-                      },
-                      child: Text('Standart'),
-                    ),
-                    PopupMenuItem(
-                      onTap: () {
-                        _controller.future.then((value) {
-                          DefaultAssetBundle.of(context)
-                              .loadString('i_theme/dark_theme.json')
-                              .then((style) {
-                            value.setMapStyle(style);
-                          });
+                      });
+                    },
+                    child: Text('Dark'),
+                  ),
+                  PopupMenuItem(
+                    onTap: () {
+                      _controller.future.then((value) {
+                        DefaultAssetBundle.of(
+                          context,
+                        ).loadString('i_theme/retro_theme.json').then((style) {
+                          value.setMapStyle(style);
                         });
-                      },
-                      child: Text('Dark'),
-                    ),
-                    PopupMenuItem(
-                      onTap: () {
-                        _controller.future.then((value) {
-                          DefaultAssetBundle.of(context)
-                              .loadString('i_theme/retro_theme.json')
-                              .then((style) {
-                            value.setMapStyle(style);
-                          });
-                        });
-                      },
-                      child: Text('Retro'),
-                    ),
-                    PopupMenuItem(
-                      onTap: () {
-                        _controller.future.then((value) {
-                          DefaultAssetBundle.of(context)
-                              .loadString('i_theme/aubergine_theme.json')
-                              .then((style) {
-                            value.setMapStyle(style);
-                          });
-                        });
-                      },
-                      child: Text('Aubergine'),
-                    ),
-                  ]),
+                      });
+                    },
+                    child: Text('Retro'),
+                  ),
+                  PopupMenuItem(
+                    onTap: () {
+                      _controller.future.then((value) {
+                        DefaultAssetBundle.of(context)
+                            .loadString('i_theme/aubergine_theme.json')
+                            .then((style) {
+                              value.setMapStyle(style);
+                            });
+                      });
+                    },
+                    child: Text('Aubergine'),
+                  ),
+                ],
+          ),
         ],
       ),
-      body: _currentPosition == null
-          ? Center(
-              child: CircularProgressIndicator(),
-            ) // 📌 Konum yüklenene kadar harita açılmasın
-          : GoogleMap(
-              onMapCreated: _onMapCreated,
-              initialCameraPosition: CameraPosition(
-                target: _currentPosition!,
-                zoom: 14.0, // 📌 Daha yakın aç
+      body:
+          _currentPosition == null
+              ? Center(
+                child: CircularProgressIndicator(),
+              ) // 📌 Konum yüklenene kadar harita açılmasın
+              : GoogleMap(
+                onMapCreated: _onMapCreated,
+                initialCameraPosition: CameraPosition(
+                  target: _currentPosition!,
+                  zoom: 14.0, // 📌 Daha yakın aç
+                ),
+                myLocationEnabled: true,
+                myLocationButtonEnabled: true,
+                markers: _markers,
               ),
-              myLocationEnabled: true,
-              myLocationButtonEnabled: true,
-              markers: _markers,
-            ),
     );
   }
-  
- 
 }

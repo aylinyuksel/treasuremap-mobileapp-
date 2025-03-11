@@ -71,6 +71,7 @@ flutter:
       - i_theme/standart_theme.json
       - i_theme/retro_theme.json
       - i_theme/aubergine_theme.json
+      - mekan_konumlari/tarihi_mekanlar.json
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see
