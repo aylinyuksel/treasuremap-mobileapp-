@@ -12,8 +12,8 @@ class Anasayfa extends StatefulWidget {
 
 class _AnasayfaState extends State<Anasayfa> {
   int aktifSayfa = 0;
-   late List<Widget> sayfalar;
- @override
+  late List<Widget> sayfalar;
+  @override
   void initState() {
     super.initState();
     sayfalar = [Ana(), FavorilerSayfasi(), Profilim()];
@@ -22,30 +22,15 @@ class _AnasayfaState extends State<Anasayfa> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        centerTitle: true,
-        title: Text("TreasureMap"),
-      ),
-      body: IndexedStack(
-        index: aktifSayfa,
-        children: sayfalar,
-      ),
+      appBar: AppBar(centerTitle: true, title: Text("TreasureMap")),
+      body: IndexedStack(index: aktifSayfa, children: sayfalar),
       bottomNavigationBar: BottomNavigationBar(
         type: BottomNavigationBarType.fixed,
         currentIndex: aktifSayfa,
         items: [
-          BottomNavigationBarItem(
-            icon: Icon(Icons.home),
-            label: 'Anasayfa',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.list),
-            label: 'Favoriler',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.person),
-            label: 'Profilim',
-          ),
+          BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Anasayfa'),
+          BottomNavigationBarItem(icon: Icon(Icons.list), label: 'Favoriler'),
+          BottomNavigationBarItem(icon: Icon(Icons.person), label: 'Profilim'),
         ],
         onTap: (int i) {
           aktifSayfa = i;
@@ -61,14 +46,10 @@ class _AnasayfaState extends State<Anasayfa> {
               child: Align(
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
-                  children: <Widget>[
-                    Text("TreasureMap"),
-                  ],
+                  children: <Widget>[Text("TreasureMap")],
                 ),
               ),
-              decoration: BoxDecoration(
-                color: Colors.white10,
-              ),
+              decoration: BoxDecoration(color: Colors.white10),
             ),
             ListTile(
               leading: Icon(Icons.home),
@@ -86,7 +67,7 @@ class _AnasayfaState extends State<Anasayfa> {
                 Navigator.pushNamed(context, "/hakkimizda");
               },
             ),
-            
+
             ListTile(
               leading: Icon(Icons.settings),
               title: Text('istanbulCard'),
@@ -95,6 +76,19 @@ class _AnasayfaState extends State<Anasayfa> {
                 Navigator.pushNamed(context, "/istanbulcard");
               },
             ),
+
+            ListTile(
+              leading: Icon(Icons.login), // Giriş yap ikonu
+              title: Text('Giriş Yap'),
+              trailing: Icon(Icons.arrow_right),
+              onTap: () {
+                Navigator.pushNamed(
+                  context,
+                  "/girisLogin",
+                ); // Giriş sayfasına yönlendir
+              },
+            ),
+
             Divider(),
             ListTile(
               leading: Icon(Icons.label_outline),

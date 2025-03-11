@@ -5,6 +5,7 @@ import 'anasayfa.dart';
 import 'hakkimizda.dart';
 import 'sayfalar/favoriler.dart';
 import 'istanbulcard.dart';
+import 'girisLogin.dart';
 
 void main() {
   runApp(
@@ -18,8 +19,9 @@ void main() {
         routes: {
           "/": (context) => Anasayfa(),
           "/favoriler": (context) => FavorilerSayfasi(),
-          "/hakkimizda": (context) => Favoriler(),  
-          "/istanbulcard": (context) => IstanbulCardScreen(), 
+          "/hakkimizda": (context) => Favoriler(),
+          "/istanbulcard": (context) => IstanbulCardScreen(),
+          "/girisLogin": (context) => LoginScreen(), // Giriş ekranı
         },
       ),
     ),
